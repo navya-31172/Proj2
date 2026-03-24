@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PetPals Marketplace</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+/* ===== GENERAL STYLES ===== */
+body{
+  font-family:'Roboto',sans-serif;
+  background:#f5f7fa;
+  margin:0;
+  color:#333;
+}
+header{
+  background:#ff7f50;
+  color:white;
+  padding:20px;
+  text-align:center;
+}
+nav{
+  background:#ff6b6b;
+  color:white;
+  padding:15px 30px;
+  font-size:22px;
+  font-weight:bold;
+  text-align:center;
+}
+nav a{
+  color:white;
+  margin:15px;
+  text-decoration:none;
+  font-weight:bold;
+}
+nav a:hover{ color:#ff7f50; }
+
+.hero{
+  background:url("https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=1470&q=80") center/cover;
+  height:35vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:white;
+}
+.hero h1{
+  background:rgba(0,0,0,0.5);
+  padding:15px 30px;
+  border-radius:10px;
+}
+
+.search-box{
+  text-align:center;
+  margin:25px;
+}
+.search-box input{
+  padding:8px;
+  width:250px;
+  border-radius:5px;
+  border:1px solid #ccc;
+}
+.search-box button{
+  padding:8px 15px;
+  background:#ff6b6b;
+  border:none;
+  color:white;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+.feed{
+  max-width:1200px;
+  margin:auto;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+  gap:20px;
+  padding:20px;
+}
+.pet-card{
+  background:white;
+  border-radius:10px;
+  overflow:hidden;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+.pet-card img{
+  width:100%;
+  height:200px;
+  object-fit:cover;
+}
+.pet-card .info{
+  padding:15px;
+  text-align:center;
+}
+.pet-card button{
+  margin:5px;
+  padding:7px 12px;
+  background:#ff6b6b;
+  border:none;
+  color:white;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+.section{
+  max-width:700px;
+  margin:40px auto;
+  background:white;
+  padding:25px;
+  border-radius:10px;
+  display:none;
+  box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+.section img{
+  width:100%;
+  height:260px;
+  object-fit:cover;
+  border-radius:10px;
+  margin-bottom:15px;
+}
+
+section{
+  padding:40px;
+  margin:20px;
+  background:white;
+  border-radius:10px;
+}
+.products{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+}
+.product-card{
+  background:#fafafa;
+  padding:20px;
+  border-radius:8px;
+  width:200px;
+  box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+.product-card h3{
+  color:#ff7f50;
+}
+form input, form textarea, form select{
+  width:100%;
+  padding:10px;
+  margin:10px 0;
+  border-radius:5px;
+  border:1px solid #ccc;
+}
+button{
+  background:#ff7f50;
+  color:white;
+  border:none;
+  padding:10px 20px;
+  border-radius:5px;
+  cursor:pointer;
+}
+button:hover{ background:#e96a3d; }
+
+footer{
+  background:#333;
+  color:white;
+  text-align:center;
+  padding:15px;
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>🐾 PetPals</h1>
+<p>Your Friendly Pet Care Partner</p>
+</header>
+
+<nav>PetPals Marketplace</nav>
+
+<section class="hero">
+<h1>Find Your Perfect Pet</h1>
+</section>
+
+<div class="search-box">
+<input type="text" id="searchInput" placeholder="Search pets">
+<button onclick="searchPets()">Search</button>
+</div>
+
+<section class="feed" id="feed"></section>
+
+<div class="section" id="section">
+<img id="section-img">
+<h2 id="section-title"></h2>
+<div id="section-content"></div>
+<div id="purchase-form-container"></div>
+<br>
+<button onclick="backToFeed()">Back</button>
+</div>
+
+<!-- Pet Products Section -->
+<section id="products">
+<h2>Pet Products</h2>
+<div class="products">
+<div class="product-card">
+<h3>Dog Food</h3>
+<p>Healthy food for dogs with balanced nutrition.</p>
+</div>
+<div class="product-card">
+<h3>Cat Toys</h3>
+<p>Fun and safe toys to keep your cat active.</p>
+</div>
+<div class="product-card">
+<h3>Pet Shampoo</h3>
+<p>Gentle shampoo for healthy pet fur.</p>
+</div>
+</div>
+</section>
+
+<section id="feeding">
+<h2>Pet Feeding Tips</h2>
+<ul>
+<li>Feed pets at the same time every day.</li>
+<li>Provide fresh and clean water.</li>
+<li>Choose food suitable for your pet's age.</li>
+<li>Avoid giving harmful human foods.</li>
+<li>Consult a vet for diet advice.</li>
+</ul>
+</section>
+
+<section id="contact">
+<h2>Contact PetPals</h2>
+<form>
+<input type="text" placeholder="Your Name" required>
+<input type="email" placeholder="Your Email" required>
+<textarea placeholder="Your Message"></textarea>
+<button type="submit">Send Message</button>
+</form>
+<p>Email: petpals@email.com</p>
+<p>Phone: +91 9876543210</p>
+</section>
+
+<footer>
+<p>© 2026 PetPals | All Rights Reserved</p>
+</footer>
+
+<script>
+// ===== Pets Data (20+ pets & birds) =====
+const data={
+fluffy:{pet:{img:'https://images.unsplash.com/photo-1574158622682-e40e69881006',title:'Fluffy the Cat',content:['Age: 2 years','Breed: Persian','Cost: $200']},owner:{img:'https://randomuser.me/api/portraits/women/45.jpg',title:'Owner: Sarah Johnson',content:['Phone: 555-1234','Email: sarah@email.com']}},
+max:{pet:{img:'https://images.unsplash.com/photo-1518717758536-85ae29035b6d',title:'Max the Dog',content:['Age: 3 years','Breed: Golden Retriever','Cost: $300']},owner:{img:'https://randomuser.me/api/portraits/men/32.jpg',title:'Owner: John Smith',content:['Phone: 555-5678','Email: john@email.com']}},
+luna:{pet:{img:'https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308',title:'Luna the Bunny',content:['Age: 1 year','Breed: Dutch Bunny','Cost: $50']},owner:{img:'https://randomuser.me/api/portraits/women/33.jpg',title:'Owner: Emily Davis',content:['Phone: 555-9999','Email: emily@email.com']}},
+bella:{pet:{img:'https://images.unsplash.com/photo-1543466835-00a7907e9de1',title:'Bella the Dog',content:['Age: 2 years','Breed: Beagle','Cost: $250']},owner:{img:'https://randomuser.me/api/portraits/women/22.jpg',title:'Owner: Olivia Brown',content:['Phone: 555-2222','Email: olivia@email.com']}},
+charlie:{pet:{img:'https://images.unsplash.com/photo-1517849845537-4d257902454a',title:'Charlie the Puppy',content:['Age: 1 year','Breed: Labrador','Cost: $350']},owner:{img:'https://randomuser.me/api/portraits/men/52.jpg',title:'Owner: Daniel Lee',content:['Phone: 555-3333','Email: daniel@email.com']}},
+daisy:{pet:{img:'https://images.unsplash.com/photo-1558788353-f76d92427f16',title:'Daisy the Dog',content:['Age: 3 years','Breed: Poodle','Cost: $280']},owner:{img:'https://randomuser.me/api/portraits/women/60.jpg',title:'Owner: Emma Wilson',content:['Phone: 555-4444','Email: emma@email.com']}},
+rocky:{pet:{img:'https://images.unsplash.com/photo-1507149833265-60c372daea22',title:'Rocky the Dog',content:['Age: 4 years','Breed: Bulldog','Cost: $300']},owner:{img:'https://randomuser.me/api/portraits/men/41.jpg',title:'Owner: Michael Scott',content:['Phone: 555-5555','Email: michael@email.com']}},
+milo:{pet:{img:'https://images.unsplash.com/photo-1598137262014-b9fc8eeb90f6',title:'Milo the Cat',content:['Age: 2 years','Breed: Siamese','Cost: $150']},owner:{img:'https://randomuser.me/api/portraits/women/17.jpg',title:'Owner: Sophia Miller',content:['Phone: 555-6666','Email: sophia@email.com']}},
+coco:{pet:{img:'https://images.unsplash.com/photo-1560807707-8cc77767d783',title:'Coco the Parrot',content:['Age: 2 years','Breed: Macaw','Cost: $180']},owner:{img:'https://randomuser.me/api/portraits/men/11.jpg',title:'Owner: David Clark',content:['Phone: 555-7777','Email: david@email.com']}},
+leo:{pet:{img:'https://images.unsplash.com/photo-1535930749574-1399327ce78f',title:'Leo the Hamster',content:['Age: 1 year','Breed: Syrian Hamster','Cost: $30']},owner:{img:'https://randomuser.me/api/portraits/men/19.jpg',title:'Owner: Alex Turner',content:['Phone: 555-8888','Email: alex@email.com']}},
+nala:{pet:{img:'https://images.unsplash.com/photo-1518791841217-8f162f1e1131',title:'Nala the Cat',content:['Age: 2 years','Breed: Bengal','Cost: $220']},owner:{img:'https://randomuser.me/api/portraits/women/28.jpg',title:'Owner: Grace Hall',content:['Phone: 555-1111','Email: grace@email.com']}},
+buddy:{pet:{img:'https://images.unsplash.com/photo-1552053831-71594a27632d',title:'Buddy the Dog',content:['Age: 5 years','Breed: German Shepherd','Cost: $320']},owner:{img:'https://randomuser.me/api/portraits/men/29.jpg',title:'Owner: Ryan Cooper',content:['Phone: 555-1010','Email: ryan@email.com']}},
+shadow:{pet:{img:'https://images.unsplash.com/photo-1518791841217-8f162f1e1131',title:'Shadow the Cat',content:['Age: 3 years','Breed: Maine Coon','Cost: $260']},owner:{img:'https://randomuser.me/api/portraits/men/50.jpg',title:'Owner: Mark Lee',content:['Phone: 555-3030','Email: mark@email.com']}},
+ruby:{pet:{img:'https://images.unsplash.com/photo-1575859431774-2e57ed632664',title:'Ruby the Dog',content:['Age: 2 years','Breed: Husky','Cost: $400']},owner:{img:'https://randomuser.me/api/portraits/women/10.jpg',title:'Owner: Jessica Green',content:['Phone: 555-4040','Email: jessica@email.com']}},
+tiger:{pet:{img:'https://images.unsplash.com/photo-1592194996308-7b43878e84a6',title:'Tiger the Cat',content:['Age: 3 years','Breed: Tabby','Cost: $140']},owner:{img:'https://randomuser.me/api/portraits/men/5.jpg',title:'Owner: Chris Evans',content:['Phone: 555-5050','Email: chris@email.com']}},
+sky:{pet:{img:'https://images.unsplash.com/photo-1501706362039-c6e80948bb4b',title:'Sky the Parrot',content:['Age: 2 years','Breed: African Grey','Cost: $220']},owner:{img:'https://randomuser.me/api/portraits/women/12.jpg',title:'Owner: Linda Roy',content:['Phone: 555-2020','Email: linda@email.com']}},
+pearl:{pet:{img:'https://images.unsplash.com/photo-1526336024174-e58f5cdd8e13',title:'Pearl the Dove',content:['Age: 1 year','Breed: White Dove','Cost: $90']},owner:{img:'https://randomuser.me/api/portraits/women/44.jpg',title:'Owner: Maria Lopez',content:['Phone: 555-2121','Email: maria@email.com']}},
+kiwi:{pet:{img:'https://images.unsplash.com/photo-1591198936750-16d8e15edb9e',title:'Kiwi the Parakeet',content:['Age: 1 year','Breed: Budgerigar','Cost: $40']},owner:{img:'https://randomuser.me/api/portraits/men/18.jpg',title:'Owner: Tom Hardy',content:['Phone: 555-3131','Email: tom@email.com']}},
+ginger:{pet:{img:'https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e',title:'Ginger the Cat',content:['Age: 2 years','Breed: Orange Tabby','Cost: $180']},owner:{img:'https://randomuser.me/api/portraits/women/26.jpg',title:'Owner: Anna Bell',content:['Phone: 555-4141','Email: anna@email.com']}},
+storm:{pet:{img:'https://images.unsplash.com/photo-1517849845537-4d257902454a',title:'Storm the Dog',content:['Age: 3 years','Breed: Border Collie','Cost: $310']},owner:{img:'https://randomuser.me/api/portraits/men/60.jpg',title:'Owner: Kevin Hart',content:['Phone: 555-5151','Email: kevin@email.com']}}
+};
+
+// ===== Display Pets Feed =====
+const feed=document.getElementById("feed");
+for(const pet in data){
+  feed.innerHTML+=`
+  <div class="pet-card" id="${pet}-card">
+  <img src="${data[pet].pet.img}">
+  <div class="info">
+  <h3>${data[pet].pet.title.split(" ")[0]}</h3>
+  <button onclick="showSection('${pet}','pet')">Pet Details</button>
+  <button onclick="showSection('${pet}','owner')">Owner</button>
+  <button onclick="showSection('${pet}','purchase')">Purchase</button>
+  </div></div>
+  `;
+}
+
+function showSection(petId,type){
+  const section=document.getElementById("section");
+  const img=document.getElementById("section-img");
+  const title=document.getElementById("section-title");
+  const content=document.getElementById("section-content");
+  const form=document.getElementById("purchase-form-container");
+  content.innerHTML="";
+  form.innerHTML="";
+  if(type==="purchase"){
+    img.src=data[petId].pet.img;
+    title.innerText="Purchase "+data[petId].pet.title;
+    form.innerHTML=`
+    <form onsubmit="alert('Purchase Successful!');return false">
+    <label>Name</label><input required>
+    <label>Email</label><input type="email" required>
+    <label>Phone</label><input required>
+    <label>Payment</label>
+    <select required>
+    <option>Credit Card</option>
+    <option>PayPal</option>
+    <option>UPI</option>
+    </select>
+    <label>Address</label><textarea required></textarea>
+    <button type="submit">Confirm Purchase</button>
+    </form>`;
+  } else {
+    const d=data[petId][type];
+    img.src=d.img;
+    title.innerText=d.title;
+    d.content.forEach(line=>{
+      const p=document.createElement("p");
+      p.innerText=line;
+      content.appendChild(p);
+    });
+  }
+  document.getElementById("feed").style.display="none";
+  section.style.display="block";
+}
+
+function backToFeed(){
+  document.getElementById("feed").style.display="grid";
+  document.getElementById("section").style.display="none";
+}
+
+function searchPets(){
+  const input=document.getElementById("searchInput").value.toLowerCase();
+  for(const pet in data){
+    const card=document.getElementById(pet+"-card");
+    if(pet.includes(input) || data[pet].pet.title.toLowerCase().includes(input))
+      card.style.display="block";
+    else
+      card.style.display="none";
+  }
+}
+</script>
+
+</body>
+</html>
